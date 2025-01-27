@@ -1,9 +1,9 @@
 #!/bin/bash
-# madde by By RobinX
+# made by By RobinX
 # Intalation Guide
-# Add "source ~/txt_files/launcher.sh" to "~/.bashrc" at the bottom not in quotes.
+# Add the storage directory of this file to ~/.bashrc . somthing like;   source ~/git/DangerouslyGoodIdeas/debian-shell-scripts/launshell.sh
 # Once .bashrc is edited restart it using ". ~/.bashrc" othewise this script wont work in exiisting shells
-# sudo apt install lolcat
+
 
 #--------------------
 # files & paths
@@ -11,28 +11,23 @@
 #create notes file in [HOME]/txt_files/notes.txt
 # alias notes="nano ~/txt_files/notes.txt"
 # alias print-notes="lpr -o sides=two-sided-long-edge -o orientation-requested=3 notes.txt"
-
+#sources
+source "$(dirname "$(realpath "$BASH_SOURCE")")/components/nanoprinting.sh"
+source "$(dirname "$(realpath "$BASH_SOURCE")")/components/thematrix.sh"
 #------------------------------------------
 #------------------------------------------
 
 
 
 
-nano_notes() {
-#  local default_file="~/txt_files/notes.txt"
- local default_file="~/txt_files/notes.txt"
- local file
- file="${1:-default_file}"
- nano "$default_file"
-#  nano "$file"
-}
+
 
 
 launshell(){
    local OPTS PPOWER notes INST
 
 
-#   Installs LolCat
+#   Installs LolCat using, sudo apt install lolcat
 if ! which lolcat > /dev/null; then
         echo "lolcat is a prerequsite and needs to be installed"
         sudo apt update
@@ -74,19 +69,19 @@ printf "\e[1;96m ____________________________________________________\n \e[0m";
 printf "\e[1;96m Edit Notes\n\e[0m";
 printf "\e[1;96m  '---------------------------------------------------+\n\e[0m";
 printf "\e[1;96m     \"nano_notes\" is the terminal shortcut to personal notes \n\e[0m"| lolcat;
-printf "\e[1;96m  '‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾+\n\e[0m";
+printf "\e[1;96m  '‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾        THEMATRIX="${THEMATRIX:-magenta}"  # Default value if THEMATRIX is not set‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾+\n\e[0m";
 printf "        Would you like to \e[1;32m\"print\"\e[0m your notes or \e[1;96m\"open\"\e[0m them?\n";
 printf "        Type \e[1;32m\"p\"\e[0m to print personal notes,\e[1;96m\"o\"\e[0m to open notes or,\n";
-printf "        Type \e[1;32m\"ps\"\e[0m to print system notes or,\e[1;96m\"os\"\e[0m to open them\n";
+printf "        Type \e[1;32m\"ps\"\e[0m to print system notes or,\e[1;96m\"os\"\e[0m to open them.\n";
 echo " "
 printf "\e[1;96m ____________________________________________________\n \e[0m";
 printf "\e[1;33m Fun Programs\n\e[0m";
 printf "\e[1;96m  '---------------------------------------------------+\n\e[0m";
-printf "\e[1;96m     Fun programs for daily use \n\e[0m"| lolcat;
+printf "\e[1;96m     Fun programs for daily use (these close launshell) \n\e[0m"| lolcat;
 printf "\e[1;96m  '‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾+\n\e[0m";
-printf "        Enter \e[1;33m\"aq\"\e[0m to launch asciiquarium.\n";
-printf "        Enter \e[1;33m\"cm\"\e[0m to launch cmatrix.\n";
-printf "        Enter \e[1;33m\"bp\"\e[0m to Launch bpytop.\n";
+printf "        Enter \e[1;33m\"aq\"\e[0m to launch \U1F42B asciiquarium.\n";
+printf "        Enter \e[1;33m\"cm\"\e[0m to launch \U1F48A cmatrix -s -C \"magenta\".\n";
+printf "        Enter \e[1;33m\"bp\"\e[0m to Launch \U1F4BB \"bpytop\".\n";
 echo " "
 printf "\e[1;96m ____________________________________________________\n \e[0m";
 #Command Section
@@ -94,7 +89,11 @@ printf "\e[1;35m Enter A Predefined Command\n\e[0m";
 printf "\e[1;96m  '---------------------------------------------------+\n\e[0m";
 printf "\e[1;96m     Predefined commands with that are useful every day \n\e[0m"| lolcat;
 printf "\e[1;96m  '‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾+\n\e[0m";
-printf "        Enter \e[1;33m\"bp\"\e[0m to bpytop.\n";
+#Command list here
+printf "        Enter \e[1;33m\"speed\"\e[0m to run speedtest-cli | lolcat.\n";
+printf "        Enter \e[1;33m\"weather-e\"\e[0m \U1F325 to run \"curl wttr.in/Exeter\" bpytop.\n";
+printf "        Enter \e[1;33m\"weather-p\"\e[0m \U1F325 to run \"curl wttr.in/Paignton\" \n";
+printf "        Enter \e[1;33m\"weather\"\e[0m \U1F325 to run a custom location \n";
 #Input section
 printf "\e[1;96m ____________________________________________________\n \e[0m";
 read -p 'Pressing "q" will quit: ' OPTS
@@ -102,31 +101,17 @@ read -p 'Pressing "q" will quit: ' OPTS
    case "$OPTS" in
 	p)
 	#Prints personal notes
-	    while read -p 'Printing Personal Notes! Is the printer turned on? Press "p" to print: ' PPOWER; do
-		if [[ $PPOWER == p ]]; then
-           echo "print ..buzz ..buzz ..whir"
-           lpr -o sides=two-sided-ln_noteong-edge -o orientation-requested=3 ~/txt_files/notes.txt
-		    break
-		fi
-	    done
+    launshell_nano_print_notes "$1"
 	    ;;
 	ps)
 	#Prints system notes
-	    while read -p 'Printing System Notes! Is the printer turned on? Press "p" to print: ' PPOWER; do
-		if [[ $PPOWER == p ]]; then
-           echo "print ..buzz ..buzz ..whir"
-           lpr -o sides=two-sided-ln_noteong-edge -o orientation-requested=3 ~/txt_files/sys.txt
-		    break
-		fi
-	    done
+    launshell_nano_print_sys "$1"
 	    ;;
 	o)
-	    notes="~/txt_files/notes.txt"
-	    nano "$notes"
+    launshell_nano_open_p_notes
 	    ;;
 	os)
-	    notes="~/txt_files/sys.txt"
-	    nano "$notes"
+	launshell_nano_open_s_notes
 	    ;;
 	aq)
         # This if statment looks for the command before executing it
@@ -138,47 +123,17 @@ read -p 'Pressing "q" will quit: ' OPTS
         fi
 
         ;;
-
 #Checks for cmatrix, installs or launches it
-	cm)
-        if ! command -v cmatrix 2>&1 >/dev/null; then
-            read -p 'program "cmatrix" could not be found. Would you like to install it? y/n;' INST
-            case $INST in
-                [Yy]* ) sudo apt-get install cmatrix -y
-                pause 'Installed Press the "Enter" key to continue...'
-                clear
-                launshell
-                ;;
-                [Nn]* ) echo 'Not installing'
-                clear
-                launshell
-                ;;
-                * ) echo "Please answer yes or no"
-                ;;
-            esac
-        else
-        clear
-        cmatrix
-        fi
+    cm)
+        launshell_enterthematrix "$1"
         ;;
 
-	bp)
-        # This if statment looks for the command before executing it
-        if ! command -v bpytop 2>&1 >/dev/null; then
-            echo "program \"bpytop\" could not be found"
-            launshell
-        else
-        bpytop
-        fi
-
-	    ;;
-
 #Checks for bpytop, installs or launches it
-	cm)
+	bp)
         if ! command -v bpytop 2>&1 >/dev/null; then
             read -p 'program "bpytop" could not be found. Would you like to install it? y/n;' INST
             case $INST in
-                [Yy]* ) sudo apt-get install foo -y
+                [Yy]* ) sudo apt-get install bpytop -y
                 pause 'Installed Press the "Enter" key to continue...'
                 clear
                 launshell
@@ -226,6 +181,28 @@ read -p 'Pressing "q" will quit: ' OPTS
         clear
         return
 	    ;;
+
+	weather-p)
+        clear
+        curl wttr.in/Paignton
+        read -p "\"Press Enter\" to continue"
+        launshell
+	    ;;
+	weather-e)
+        clear
+        curl wttr.in/Exeter
+        read -p "\"Press Enter\" to continue"
+        launshell
+	    ;;
+	weather)
+        clear
+        printf "Type the name of the city you want a weather report on \n" | lolcat;
+        read -p 'Press "Enter" to continue;' WEATHER;
+        curl "wttr.in/$WEATHER"
+        read -p "\"Press Enter\" to continue"
+        launshell
+	    ;;
+
 	*)
 	    pause "Not a valid entry"
 	    clear
