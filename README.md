@@ -1,9 +1,11 @@
-# debian-shell-scripts
+# launshell
 
-## Context
-A repo for my debian based bash scripts. 
+## Introduction
 
-Contents
+A [Debian](https://www.debian.org/)  based set of scripts for quality of life improvments in the bash shell. 
+I wrote this because it's fun to do stuff like this and, its always good to learn new things.
+
+## Contents
 
 LICENCE
 README.md
@@ -46,12 +48,14 @@ I want to do this on a vm, so it might take me  a while to get arround to.
 
 ## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first
-to discuss what you would like to change.
+Pull requests are welcome. For major changes, please add a ".sh" file in contents/
 
-Please make sure to update tests as appropriate.
+```bash
+contents/foo.sh
+```
+then register and  refrence your new functions in launshell.sh
 
-I am still learning Git so I may need help with this myself.
+I am still learning Bash Scripting and Git so I may need help with all this myself.
 
 ## License
 
