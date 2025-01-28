@@ -20,8 +20,9 @@ launshell_enterthematrix() {
         esac
     else
         clear
-        printf "Type a color, your options are: green, red, blue, white, yellow, cyan, magenta, and black.\n" | lolcat
-        read -p '"Q|q" goes nack to launshell, Pressing any button will quit cmatrix once launched: ' THEMATRIX
+#        printf "Type a color, your options are: green, red, blue, white, yellow, cyan, magenta, and black.\n" | lolcat
+        printf "Type a color, your options are: \e[4mg\e[0mreen, \e[4mr\e[0med, \e[4mb\e[0mlue, \e[4mw\e[0mhite, \e[4my\e[0mellow, \e[4mc\e[0myan, \e[4mm\e[0magenta, and \e[4mb\e[0mlack.\n" | lolcat
+        read -p '"Q|q" goes back to launshell, Pressing any button will quit cmatrix once launched: ' THEMATRIX
 
         # Normalize the input (first letter or full name, case insensitive)
         THEMATRIX=$(echo "$THEMATRIX" | tr '[:upper:]' '[:lower:]')

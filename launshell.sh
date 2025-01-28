@@ -14,6 +14,7 @@
 #sources
 source "$(dirname "$(realpath "$BASH_SOURCE")")/components/nanoprinting.sh"
 source "$(dirname "$(realpath "$BASH_SOURCE")")/components/thematrix.sh"
+source "$(dirname "$(realpath "$BASH_SOURCE")")/components/weather.sh"
 #------------------------------------------
 #------------------------------------------
 
@@ -69,7 +70,7 @@ printf "\e[1;96m ____________________________________________________\n \e[0m";
 printf "\e[1;96m Edit Notes\n\e[0m";
 printf "\e[1;96m  '---------------------------------------------------+\n\e[0m";
 printf "\e[1;96m     \"nano_notes\" is the terminal shortcut to personal notes \n\e[0m"| lolcat;
-printf "\e[1;96m  '‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾        THEMATRIX="${THEMATRIX:-magenta}"  # Default value if THEMATRIX is not set‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾+\n\e[0m";
+printf "\e[1;96m  '‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾+\n\e[0m";
 printf "        Would you like to \e[1;32m\"print\"\e[0m your notes or \e[1;96m\"open\"\e[0m them?\n";
 printf "        Type \e[1;32m\"p\"\e[0m to print personal notes,\e[1;96m\"o\"\e[0m to open notes or,\n";
 printf "        Type \e[1;32m\"ps\"\e[0m to print system notes or,\e[1;96m\"os\"\e[0m to open them.\n";
@@ -79,8 +80,8 @@ printf "\e[1;33m Fun Programs\n\e[0m";
 printf "\e[1;96m  '---------------------------------------------------+\n\e[0m";
 printf "\e[1;96m     Fun programs for daily use (these close launshell) \n\e[0m"| lolcat;
 printf "\e[1;96m  '‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾+\n\e[0m";
-printf "        Enter \e[1;33m\"aq\"\e[0m to launch \U1F42B asciiquarium.\n";
-printf "        Enter \e[1;33m\"cm\"\e[0m to launch \U1F48A cmatrix -s -C \"magenta\".\n";
+printf "        Enter \e[1;33m\"aq\"\e[0m to launch \U1F420 asciiquarium.\n";
+printf "        Enter \e[1;33m\"cm\"\e[0m to launch \U1F48A cmatrix.\n";
 printf "        Enter \e[1;33m\"bp\"\e[0m to Launch \U1F4BB \"bpytop\".\n";
 echo " "
 printf "\e[1;96m ____________________________________________________\n \e[0m";
@@ -93,7 +94,7 @@ printf "\e[1;96m  '‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾�
 printf "        Enter \e[1;33m\"speed\"\e[0m to run speedtest-cli | lolcat.\n";
 printf "        Enter \e[1;33m\"weather-e\"\e[0m \U1F325 to run \"curl wttr.in/Exeter\" bpytop.\n";
 printf "        Enter \e[1;33m\"weather-p\"\e[0m \U1F325 to run \"curl wttr.in/Paignton\" \n";
-printf "        Enter \e[1;33m\"weather\"\e[0m \U1F325 to run a custom location \n";
+printf "        Enter \e[1;33m\"weather\"\e[0m or \e[1;33m\"w\"\e[0m \U1F325 to run a custom location \n";
 #Input section
 printf "\e[1;96m ____________________________________________________\n \e[0m";
 read -p 'Pressing "q" will quit: ' OPTS
@@ -181,26 +182,22 @@ read -p 'Pressing "q" will quit: ' OPTS
         clear
         return
 	    ;;
-
+# Weather in Paignton
+	speed)
+        speedtest-cli | lolcat
+        read -p "Press ⏎ to continue..."
+        launshell
+	    ;;
+# Weather in Paignton
 	weather-p)
-        clear
-        curl wttr.in/Paignton
-        read -p "\"Press Enter\" to continue"
-        launshell
+        launshell_weather_1
 	    ;;
+# Weather in Exeter
 	weather-e)
-        clear
-        curl wttr.in/Exeter
-        read -p "\"Press Enter\" to continue"
-        launshell
+        launshell_weather_2
 	    ;;
-	weather)
-        clear
-        printf "Type the name of the city you want a weather report on \n" | lolcat;
-        read -p 'Press "Enter" to continue;' WEATHER;
-        curl "wttr.in/$WEATHER"
-        read -p "\"Press Enter\" to continue"
-        launshell
+	weather|w)
+        launshell_weather_custom
 	    ;;
 
 	*)
